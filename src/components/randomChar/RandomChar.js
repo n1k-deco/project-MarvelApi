@@ -1,18 +1,19 @@
-import { useState, useEffect } from 'react';
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import useMarvelService from '../../services/MarvelService';
+import { useState, useEffect } from 'react'
 
-import './randomChar.scss';
-import mjolnir from '../../resources/img/mjolnir.png';
+import Spinner from '../spinner/Spinner'
+import ErrorMessage from '../errorMessage/ErrorMessage'
+import useMarvelService from '../../services/MarvelService'
+
+import './randomChar.scss'
+import mjolnir from '../../resources/img/mjolnir.png'
 
 const RandomChar = () => {
     const [char, setChar] = useState(null)
     const {loading, error, clearError, getCharacter} = useMarvelService()
 
     useEffect(() => {
-        updateChar();
-        const timerId = setInterval(updateChar, 60000); 
+        updateChar()
+        const timerId = setInterval(updateChar, 60000) 
 
         return () => {
             clearInterval(timerId)
@@ -25,14 +26,14 @@ const RandomChar = () => {
 
     const updateChar = () => {
         clearError()
-        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
         getCharacter(id)
             .then(onCharLoaded)
     }
 
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !char) ? <Viev char={char} /> : null;
+    const errorMessage = error ? <ErrorMessage /> : null
+    const spinner = loading ? <Spinner /> : null
+    const content = !(loading || error || !char) ? <Viev char={char} /> : null
 
     return (
         <div className="randomchar">
@@ -57,11 +58,11 @@ const RandomChar = () => {
 }
 
 const Viev = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki} = char;
+    const {name, description, thumbnail, homepage, wiki} = char
     
-    let imgStyle = {'objectFit' : 'cover'};
+    let imgStyle = {'objectFit' : 'cover'}
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imgStyle = {'objectFit' : 'contain'};
+        imgStyle = {'objectFit' : 'contain'}
     }
     
     return (
@@ -69,9 +70,7 @@ const Viev = ({char}) => {
             <img src={thumbnail} alt="Random character" className="randomchar__img" style={imgStyle} />
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
-                <p className="randomchar__descr">
-                    {description}
-                </p>
+                <p className="randomchar__descr">{description}</p>
                 <div className="randomchar__btns">
                     <a href={homepage} className="button button__main">
                         <div className="inner">homepage</div>
@@ -85,4 +84,4 @@ const Viev = ({char}) => {
     )
 }
 
-export default RandomChar;
+export default RandomChar

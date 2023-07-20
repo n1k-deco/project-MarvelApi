@@ -1,17 +1,14 @@
-import { Component } from "react/cjs/react.production.min";
-import ErrorMessage from "../errorMessage/ErrorMessage";
+import { Component } from "react"
+
+import ErrorMessage from "../errorMessage/ErrorMessage"
 
 class ErrorBoundary extends Component {
     state = {
         error: false
     }
 
-    // static getDerivedStateFromError(error) {
-    //     return {error: true}
-    // }
-
     componentDidCatch(error, errorInfo) {
-        console.log(error, errorInfo);
+        console.log(error, errorInfo)
         this.setState({
             error: true
         })
@@ -22,8 +19,8 @@ class ErrorBoundary extends Component {
             return <ErrorMessage />
         }
 
-        return this.props.children;
+        return this.props.children
     }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

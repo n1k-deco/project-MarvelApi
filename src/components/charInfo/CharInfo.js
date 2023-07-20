@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
-import Spinner from '../spinner/Spinner';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Skeleton from '../skeleton/Skeleton';
-import useMarvelService from '../../services/MarvelService';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-import './charInfo.scss';
+import Spinner from '../spinner/Spinner'
+import ErrorMessage from '../errorMessage/ErrorMessage'
+import Skeleton from '../skeleton/Skeleton'
+import useMarvelService from '../../services/MarvelService'
+
+import './charInfo.scss'
 
 const CharInfo = (props) => {
     const [char, setChar] = useState(null)
 
-    const {loading, error, clearError, getCharacter} = useMarvelService();
+    const {loading, error, clearError, getCharacter} = useMarvelService()
 
     useEffect(() => {
         updateChar()
     }, [props.charId])
 
     const updateChar = () => {
-        const {charId} = props;
+        const {charId} = props
         if (!charId) {
-            return;
+            return
         }
         
         clearError()
@@ -31,10 +32,10 @@ const CharInfo = (props) => {
         setChar(char)
     }
 
-    const skeleton = char || loading || error ?  null : <Skeleton />;
-    const errorMessage = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !char) ? <Viev char={char} /> : null;
+    const skeleton = char || loading || error ?  null : <Skeleton />
+    const errorMessage = error ? <ErrorMessage /> : null
+    const spinner = loading ? <Spinner /> : null
+    const content = !(loading || error || !char) ? <Viev char={char} /> : null
 
     return (
         <div className="char__info">
@@ -47,11 +48,11 @@ const CharInfo = (props) => {
 }
 
 const Viev = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki, comics} = char;
+    const {name, description, thumbnail, homepage, wiki, comics} = char
 
-    let imgStyle = {'objectFit' : 'cover'};
+    let imgStyle = {'objectFit' : 'cover'}
     if (thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg') {
-        imgStyle = {'objectFit' : 'contain'};
+        imgStyle = {'objectFit' : 'contain'}
     }
 
     return (
@@ -78,7 +79,7 @@ const Viev = ({char}) => {
                 {comics.lenght > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
-                        if (i > 9) return;
+                        if (i > 9) return
                         return (
                             <li key={i} className="char__comics-item">
                                 {item.name}
@@ -96,4 +97,4 @@ CharInfo.propTypes = {
     charId: PropTypes.number
 }
 
-export default CharInfo;
+export default CharInfo
