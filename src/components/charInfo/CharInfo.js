@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Spinner from '../spinner/Spinner'
@@ -79,10 +80,13 @@ const Viev = ({char}) => {
                 {comics.lenght > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
+                        let comicsFromCharInfo = item.resourceURI.replace(/\D/g, '').slice(1);
                         if (i > 9) return
                         return (
                             <li key={i} className="char__comics-item">
-                                {item.name}
+                                <Link to = {`/comics/${comicsFromCharInfo}`}>
+                                    {item.name}
+                                </Link>
                             </li>
                         )
                     })
