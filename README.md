@@ -13,4 +13,4 @@
 + Марвел API :point_right: https://developer.marvel.com/docs
 
 ## Deploy 
-+ Vercel --> https://project-marvel-api.vercel.app/
++ Vercel --> https://marvel-api-sigma.vercel.app/
